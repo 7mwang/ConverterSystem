@@ -2,17 +2,26 @@ import java.util.Arrays;
 
 class Main {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(AsciiToDecimal("Hello")));
 
-        System.out.println(DecimalToBinary(1043)); // 10000010011
+        // TODO: Build an ASCII-to-Decimal converter.
+        System.out.println("Matthew to ASCII is " + Arrays.toString(AsciiToDecimal("Matthew")));
 
+        // TODO: Build a number-base converter that converts between Binary, Decimal, and Octal.
+        System.out.println("Decimal 1043 to binary is " + DecimalToBinary(1043));
+        System.out.println("Binary 10000010011 to decimal is " + BinaryToDecimal("10000010011"));
+        System.out.println("Octal 16 to decimal is " + OctalToDecimal(16));
+        System.out.println("Decimal 14 to octal is " + DecimalToOctal(14));
+
+        // TODO: Write a program that reads an image file and prints the pixel values.
+
+        // TODO: Write a program that reads pixel values and creates an image file.
     }
 
     public static int[] AsciiToDecimal(String ascii) {
         char[] asciiArray = ascii.toCharArray();
         int[] decimalArray = new int[asciiArray.length];
         for (int i = 0; i < decimalArray.length; i++) {
-            decimalArray[i] = (int) asciiArray[i];
+            decimalArray[i] = asciiArray[i];
         }
 
         return decimalArray;
@@ -21,6 +30,7 @@ class Main {
     public static String DecimalToBinary(int num) {
         String result = "";
         int bit;
+        if (num == 0) return "0";
         while(num != 0) {
             bit = num % 2;
             result = bit + result;
@@ -30,17 +40,44 @@ class Main {
         return result;
     }
 
+    public static int BinaryToDecimal(String num) {
+        char[] nums = num.toCharArray();
+        int decimal = 0;
+        for(int i = nums.length-1; i >= 0; i--) {
+            if (nums[i] == '1') decimal += (int) Math.pow(2, ((nums.length-1)-i));
+        }
+
+        return decimal;
+
+    }
+
+    public static int OctalToDecimal(int num) {
+        int len = String.valueOf(num).length();
+        int[] nums = new int[len];
+        for(int i = 0; i < len; i++) {
+            nums[i] = num % 10;
+            num /= 10;
+        }
+        int decimal = 0;
+        for(int i = 0; i < nums.length; i++) {
+            decimal += (int) (nums[i]*Math.pow(8, i));
+        }
+
+        return decimal;
+    }
+
+    public static int DecimalToOctal(int num) {
+        String result = "";
+        int bit;
+        if (num == 0) return 0;
+        while(num != 0) {
+            bit = num % 8;
+            result = bit + result;
+            num /= 8;
+        }
+
+        return Integer.parseInt(result);
+    }
+
+
 }
-/*
-513 / 2 = 256 rem 1
-256 / 2 = 128 rem 0
-128 / 2 = 64 rem 0
-64 / 2 = 32 rem 0
-32 / 2 = 16 rem 0
-16 / 2 = 8 rem 0
-8 / 2 = 4 rem 0
-4 / 2 = 2 rem 0
-2 / 2 = 1 rem 0
-1 / 2 = 0 rem 1
-1000000001
- */
