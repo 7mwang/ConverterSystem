@@ -1,3 +1,6 @@
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Arrays;
 
 class Main {
@@ -13,6 +16,14 @@ class Main {
         System.out.println("Decimal 14 to octal is " + DecimalToOctal(14));
 
         // TODO: Write a program that reads an image file and prints the pixel values.
+        try {
+            File image = new File("C:\\Users\\matth\\Desktop\\ConverterSystem\\src\\main\\java\\smile.png");
+            BufferedImage input = ImageIO.read(image);
+            System.out.println(Arrays.toString(readImagePixels(input)));
+        }
+        catch(Exception e) {
+            System.out.println("No file with this path.");
+        }
 
         // TODO: Write a program that reads pixel values and creates an image file.
     }
@@ -77,6 +88,22 @@ class Main {
         }
 
         return Integer.parseInt(result);
+    }
+
+    public static int[][] readImagePixels(BufferedImage path) {
+        int width = path.getWidth();
+        int height = path.getHeight();
+        int totalpixels = 0;
+        int[][] values = new int[width][height];
+        for(int i = 0; i < width; i++) {
+            for(int j = 0; j < height; j++) {
+                totalpixels++;
+                values[i][j] = path.getRGB(i,j);
+                System.out.printf("Value: %d x: %d y: %d %n", values[i][j], i, j);
+            }
+        }
+        System.out.println(totalpixels);
+        return values;
     }
 
 }
