@@ -19,7 +19,11 @@ class Main {
         try {
             File image = new File("C:\\Users\\matth\\Desktop\\ConverterSystem\\src\\main\\java\\smile.png");
             BufferedImage input = ImageIO.read(image);
-            System.out.println(Arrays.toString(readImagePixels(input)));
+            int[][] result = readImagePixels(input);
+            System.out.printf("Pixel Values by row for %s:%n", image.getName());
+            for(int i = 0; i < result.length; i++) {
+                System.out.println(Arrays.toString(result[i]));
+            }
         }
         catch(Exception e) {
             System.out.println("No file with this path.");
@@ -93,16 +97,16 @@ class Main {
     public static int[][] readImagePixels(BufferedImage path) {
         int width = path.getWidth();
         int height = path.getHeight();
-        int totalpixels = 0;
+        // int totalpixels = 0;
         int[][] values = new int[width][height];
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                totalpixels++;
+                // totalpixels++;
                 values[i][j] = path.getRGB(i,j);
-                System.out.printf("Value: %d x: %d y: %d %n", values[i][j], i, j);
+                // System.out.printf("Value: %d x: %d y: %d %n", values[i][j], i, j);
             }
         }
-        System.out.println(totalpixels);
+        // System.out.println(totalpixels);
         return values;
     }
 
