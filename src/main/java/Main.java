@@ -79,5 +79,4 @@ class Main {
         return Integer.parseInt(result);
     }
 
-
 }
