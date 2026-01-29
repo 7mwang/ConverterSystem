@@ -1,7 +1,10 @@
 import javax.imageio.ImageIO;
+import javax.imageio.ImageTypeSpecifier;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Arrays;
+
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 class Main {
     public static void main(String[] args) {
@@ -17,7 +20,7 @@ class Main {
 
         // TODO: Write a program that reads an image file and prints the pixel values.
         try {
-            File image = new File("C:\\Users\\matth\\Desktop\\ConverterSystem\\src\\main\\java\\smile.png");
+            File image = new File("theknight.jpg");
             BufferedImage input = ImageIO.read(image);
             int[][] result = readImagePixels(input);
             System.out.printf("Pixel Values by row for %s:%n", image.getName());
@@ -30,6 +33,15 @@ class Main {
         }
 
         // TODO: Write a program that reads pixel values and creates an image file.
+        try {
+            File image = new File("theknight.jpg");
+            BufferedImage input = ImageIO.read(image);
+            File newImage = new File("image.png");
+            ImageIO.write(createImage(readImagePixels(input)), "png", newImage);
+        }
+        catch(Exception e) {
+            System.out.println("file error");
+        }
     }
 
     public static int[] AsciiToDecimal(String ascii) {
@@ -98,11 +110,11 @@ class Main {
         int width = path.getWidth();
         int height = path.getHeight();
         // int totalpixels = 0;
-        int[][] values = new int[width][height];
-        for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
+        int[][] values = new int[height][width];
+        for(int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++) {
                 // totalpixels++;
-                values[i][j] = path.getRGB(i,j);
+                values[i][j] = path.getRGB(j,i);
                 // System.out.printf("Value: %d x: %d y: %d %n", values[i][j], i, j);
             }
         }
@@ -110,4 +122,14 @@ class Main {
         return values;
     }
 
+    public static BufferedImage createImage(int[][] pixels) {
+        BufferedImage image = new BufferedImage(pixels[0].length, pixels.length, TYPE_INT_ARGB);
+
+        for(int i = 0; i < pixels.length; i++) {
+            for(int j = 0; j < pixels[0].length; j++) {
+                image.setRGB(j, i, pixels[i][j]);
+            }
+        }
+        return image;
+    }
 }
