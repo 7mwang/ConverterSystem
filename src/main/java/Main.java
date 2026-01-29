@@ -10,12 +10,13 @@ class Main {
 
         // TODO: Build an ASCII-to-Decimal converter.
         System.out.println("Matthew to ASCII is " + Arrays.toString(AsciiToDecimal("Matthew")));
-
         // TODO: Build a number-base converter that converts between Binary, Decimal, and Octal.
         System.out.println("Decimal 1043 to binary is " + DecimalToBinary(1043));
         System.out.println("Binary 10000010011 to decimal is " + BinaryToDecimal("10000010011"));
         System.out.println("Octal 16 to decimal is " + OctalToDecimal(16));
         System.out.println("Decimal 14 to octal is " + DecimalToOctal(14));
+        System.out.println("Binary 10000010011 to octal is " + BinaryToOctal("10000010011"));
+        System.out.println("Octal 2023 to binary is " + OctalToBinary(2023));
 
         // TODO: Write a program that reads an image file and prints the pixel values.
         try {
@@ -150,6 +151,17 @@ class Main {
         return Integer.parseInt(result);
     }
 
+    // Convert binary to decimal, then decimal to octal
+
+    public static int BinaryToOctal(String num) {
+        return DecimalToOctal(BinaryToDecimal(num));
+    }
+
+    // Convert octal to decimal, then decimal to binary
+
+    public static String OctalToBinary(int num) {
+        return DecimalToBinary(OctalToDecimal(num));
+    }
     /*
     First, create a 2d array to store all the pixel values.
     The size is according to the size of the image.
