@@ -43,7 +43,9 @@ class Main {
             System.out.println("No file with this path.");
         }
     }
+
     // Java stores ASCII chars as their decimal values. Casting a char to an int (explicitly or implicitly) will give you its decimal value.
+
     public static int[] AsciiToDecimal(String ascii) {
         char[] asciiArray = ascii.toCharArray();
         int[] decimalArray = new int[asciiArray.length];
@@ -74,11 +76,13 @@ class Main {
 
         return result;
     }
+
     /*
     As an extension of knowing how to count in binary,
     converting binary to decimal is just adding up:
     bit_value * 2 to the power of (bit position) for all bits, where LSB is "bit position 0".
      */
+
     public static int BinaryToDecimal(String num) {
         char[] nums = num.toCharArray();
         int decimal = 0;
@@ -89,6 +93,7 @@ class Main {
         return decimal;
 
     }
+
     /*
     A similar formula to the binary to decimal formula is used here.
     One difference is that I use an int because unlike binary numbers,
@@ -103,6 +108,7 @@ class Main {
     + 1*8**1 = 6+8
              = 14
      */
+
     public static int OctalToDecimal(int num) {
         int len = String.valueOf(num).length();
         int[] nums = new int[len];
@@ -130,6 +136,7 @@ class Main {
     Digits = 1, 6
     = 16
      */
+
     public static int DecimalToOctal(int num) {
         String result = "";
         int bit;
@@ -149,6 +156,7 @@ class Main {
     Then, loop through the entire image/number of pixels and get the rgb (argb) value for each pixel
     Add each pixel value to the array such that by the loop, the (x,y) value of the pixel matches values[y][x]
      */
+
     public static int[][] readImagePixels(BufferedImage path) {
         int width = path.getWidth();
         int height = path.getHeight();
@@ -166,6 +174,7 @@ class Main {
     but this time take an input of pixel values in a 2d array,
     and then set the (a)rgb values for each pixel (x,y) to the corresponding value in pixels[y][x]
      */
+
     public static BufferedImage createImage(int[][] pixels) {
         int width = pixels[0].length;
         int height = pixels.length;
