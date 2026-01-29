@@ -2,47 +2,98 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Arrays;
-
+import java.util.Scanner;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 class Main {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-        // TODO: Build an ASCII-to-Decimal converter.
-        System.out.println("Matthew to ASCII is " + Arrays.toString(AsciiToDecimal("Matthew")));
-        // TODO: Build a number-base converter that converts between Binary, Decimal, and Octal.
-        System.out.println("Decimal 1043 to binary is " + DecimalToBinary(1043));
-        System.out.println("Binary 10000010011 to decimal is " + BinaryToDecimal("10000010011"));
-        System.out.println("Octal 16 to decimal is " + OctalToDecimal(16));
-        System.out.println("Decimal 14 to octal is " + DecimalToOctal(14));
-        System.out.println("Binary 10000010011 to octal is " + BinaryToOctal("10000010011"));
-        System.out.println("Octal 2023 to binary is " + OctalToBinary(2023));
+        System.out.println("Welcome! Pick an operation.");
+        System.out.println("1) ASCII to Decimal");
+        System.out.println("2) Decimal to Binary");
+        System.out.println("3) Binary to Decimal");
+        System.out.println("4) Decimal to Octal");
+        System.out.println("5) Octal to Decimal");
+        System.out.println("6) Binary to Octal");
+        System.out.println("7) Octal to Binary");
+        System.out.println("8) Read and print pixel values for an image");
+        System.out.println("9) Create your own image");
+        System.out.println("0) Quit");
 
-        // TODO: Write a program that reads an image file and prints the pixel values.
-        try {
-            File image = new File("smile.png");
-            BufferedImage input = ImageIO.read(image);
-            int[][] result = readImagePixels(input);
-            System.out.printf("Pixel Values by row for %s:%n", image.getName());
-            for(int i = 0; i < result.length; i++) {
-                System.out.println(Arrays.toString(result[i]));
-            }
-        }
-        catch(Exception e) {
-            System.out.println("No file with this path.");
+        switch(sc.nextInt()) {
+            case 1:
+                System.out.println("Enter your ASCII");
+                System.out.print("...to Decimal is: " + Arrays.toString(AsciiToDecimal(sc.next())));
+                return;
+            case 2:
+                System.out.println("Enter your Decimal");
+                System.out.print("...to Binary is: " + DecimalToBinary(sc.nextInt()));
+                return;
+            case 3:
+                System.out.println("Enter your Binary");
+                System.out.print("...to Decimal is: " + BinaryToDecimal(sc.next()));
+                return;
+            case 4:
+                System.out.println("Enter your Decimal");
+                System.out.print("...to Octal is: " + DecimalToOctal(sc.nextInt()));
+                return;
+            case 5:
+                System.out.println("Enter your Octal");
+                System.out.print("...to Decimal is: " + OctalToDecimal(sc.nextInt()));
+                return;
+            case 6:
+                System.out.println("Enter your Binary");
+                System.out.print("...to Octal is: " + BinaryToOctal(sc.next()));
+                return;
+            case 7:
+                System.out.println("Enter your Octal");
+                System.out.print("...to Binary is: " + OctalToBinary(sc.nextInt()));
+                return;
+            case 8:
+                System.out.println("Enter your file path");
+                try {
+                    File image = new File(sc.next());
+                    BufferedImage input = ImageIO.read(image);
+                    int[][] result = readImagePixels(input);
+                    System.out.printf("Pixel Values by row for %s:%n", image.getName());
+                    for(int i = 0; i < result.length; i++) {
+                        System.out.println(Arrays.toString(result[i]));
+                    }
+                    return;
+                }
+                catch(Exception e) {
+                    System.out.println("No file exists with this path.");
+                    return;
+                }
+            case 9:
+                System.out.println("Input your desired file name, followed by your pixel width, height, and pixel values");
+                System.out.print("File name: ");
+                String fileName = sc.next();
+                System.out.print("Width: ");
+                int width = sc.nextInt();
+                System.out.print("Height: ");
+                int height = sc.nextInt();
+                System.out.println("Pixels (left to right, up to down): ");
+                int[][] pixels = new int[height][width];
+                for(int y = 0; y < height; y++) {
+                    for(int x = 0; x < width; x++) {
+                        pixels[y][x] = sc.nextInt();
+                    }
+                }
+                try {
+                    File newImage = new File(fileName + ".png");
+                    ImageIO.write(createImage(pixels), "png", newImage);
+                    return;
+                }
+                catch(Exception e) {
+                    System.out.println("Image write failed.");
+                    return;
+                }
+            case 0:
+
         }
 
-        // TODO: Write a program that reads pixel values and creates an image file.
-
-        try {
-            File image = new File("knight.jpg");
-            BufferedImage input = ImageIO.read(image);
-            File newImage = new File("image.png");
-            ImageIO.write(createImage(readImagePixels(input)), "png", newImage);
-        }
-        catch(Exception e) {
-            System.out.println("No file with this path.");
-        }
     }
 
     // Java stores ASCII chars as their decimal values. Casting a char to an int (explicitly or implicitly) will give you its decimal value.
@@ -162,6 +213,7 @@ class Main {
     public static String OctalToBinary(int num) {
         return DecimalToBinary(OctalToDecimal(num));
     }
+
     /*
     First, create a 2d array to store all the pixel values.
     The size is according to the size of the image.
