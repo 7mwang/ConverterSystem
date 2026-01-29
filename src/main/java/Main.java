@@ -20,7 +20,7 @@ class Main {
 
         // TODO: Write a program that reads an image file and prints the pixel values.
         try {
-            File image = new File("theknight.jpg");
+            File image = new File("smile.png");
             BufferedImage input = ImageIO.read(image);
             int[][] result = readImagePixels(input);
             System.out.printf("Pixel Values by row for %s:%n", image.getName());
@@ -34,13 +34,13 @@ class Main {
 
         // TODO: Write a program that reads pixel values and creates an image file.
         try {
-            File image = new File("theknight.jpg");
+            File image = new File("knight.jpg");
             BufferedImage input = ImageIO.read(image);
             File newImage = new File("image.png");
             ImageIO.write(createImage(readImagePixels(input)), "png", newImage);
         }
         catch(Exception e) {
-            System.out.println("file error");
+            System.out.println("No file with this path.");
         }
     }
 
